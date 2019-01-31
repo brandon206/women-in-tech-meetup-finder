@@ -20,6 +20,7 @@ body {
 }
 
 .sp-circle {
+  margin-top: 15%;
   height: 20vh;
   width: 20vh;
   border: 4px rgba(250, 128, 114, 0.25) solid;
@@ -203,6 +204,11 @@ figure {
   position: relative;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-bottom: 4em;
+}
+
+#events-to-choose, .twitter-and-google-maps, #gallery {
+  margin-bottom: 4em;
 }
 
 .landing-page-image {
@@ -307,12 +313,16 @@ div.figure-text {
   display: block;
   position: relative;
   text-align: center;
-  margin: 1rem 0;
+  margin-top: 1rem;
 }
 
 .event-info > span {
   font-weight: bold;
   font-size: 20px;
+}
+
+.back_button, .eventURL {
+  margin: 1rem 0.5rem 0rem 0.5rem;
 }
 
 .date,
@@ -347,11 +357,30 @@ ol {
   justify-content: center;
 }
 
-.twitter_and_google_maps {
-  display: grid;
-  margin: 10px 0;
-  grid-row-gap: 3vh;
-  
+.event-body {
+  display: flex;
+  max-height: 400px;
+  margin: 2.5em 0em;
+}
+
+.twitter_and_google_maps, .event-description-container {
+  width: 48%;
+  justify-content: space-evenly;
+}
+
+.event-description-container {
+  background-color: #e7e7e7;
+  margin: 0rem 2rem;
+  padding: 0rem 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.event-description {
+  height: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-size: 2rem;
 }
 
 .twitter_and_google_maps > button {
@@ -363,6 +392,7 @@ ol {
   width: 100%;
   max-height: 190px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .twitter-feed > div > * {
@@ -395,12 +425,16 @@ ol {
 }
 
 .twitter-header {
-  font-size: 125%;
+  font-size: 155%;
   font-family: sans-serif;
   font-weight: bold;
   text-align: center;
   padding: 10px;
   margin: 0px;
+}
+
+.tweets > li {
+  font-size:120%;
 }
 
 .side-header {
@@ -429,6 +463,27 @@ ol {
   cursor: pointer;
 }
 
+.gallery-intro {
+  width: 80%;
+  margin: auto;
+  background-color: #c5e3ef;
+  border-radius: 10px;
+}
+
+.gallery-intro-header {
+  font-size: 28px;
+  padding-top: 1em;
+}
+
+.gallery-intro-desc {
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
+  font-size: 22px;
+  font-family: sans-serif;
+  padding-bottom: 1em;
+}
+
 .gallery-chicktech, .gallery-girlsintech, .gallery-girldevelopit {
   display: flex;
   flex-flow: row wrap;
@@ -449,9 +504,9 @@ ol {
 }
 
 .gallery-image:hover {
-  -moz-box-shadow:    3px 3px 5px 6px #ef5350;
-  -webkit-box-shadow: 3px 3px 5px 6px #ef5350;
-  box-shadow:         3px 3px 5px 6px #ef5350;
+  -moz-box-shadow:    0 0 0 4px #ef5350;
+  -webkit-box-shadow: 0 0 0 4px #ef5350;
+  box-shadow:         0 0 0 4px #ef5350;
 }
 
 .gallery-modal {
@@ -499,7 +554,9 @@ ol {
 }
 
 .modal-header {
-  background-color: #ef5350;
+  /* background-color: #ef5350; */
+  height: 0;
+  border-bottom: none;
   border-radius: 5px 5px 0 0;
 }
 
@@ -512,6 +569,10 @@ ol {
 .modal-footer button:hover, .modal-footer button:focus {
   background-color: #b9403e;
   color: white;
+}
+
+div.item img {
+  margin: 0 auto;
 }
 
 .events-page {
@@ -543,17 +604,28 @@ ol {
   }
 }
 
-@media (min-width: 1001px) and (max-width:1350px) {
+@media (min-width: 991px) and (max-width:1350px) {
   .header-text2 {
     font-size: 1.7rem;
     padding-bottom: 1rem;
   }
 }
 
-@media (min-width: 1001px) and (max-width:1075px) {
+@media (min-width: 991px) and (max-width:1075px) {
   .twitter-list {
     max-height: 167px;
     overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 1336px){
+  .gallery-intro-header {
+    font-size: 25px;
+  }
+
+  .gallery-intro-desc {
+    font-size: 18px;
   }
 }
 
@@ -570,7 +642,8 @@ ol {
     box-shadow: 0 10px 6px -6px #777;
   }
 }
-@media (min-width: 768px) and (max-width:1001px) {
+
+@media (min-width: 768px) and (max-width:991px) {
   .newest-section{
     background-color: #e7e7e7;
     width: 64%;
@@ -601,12 +674,14 @@ ol {
     margin: 0 auto;
     background-color: #e7e7e7;
   }
+
   .twitter-section {
     background-color: #c5e3ef;
     width: 100%;
     margin: 0 auto;
     margin-top:5%;
   }
+
   .four-sections {
     margin: 0 auto;
     width: 90%;
@@ -621,20 +696,59 @@ ol {
     cursor: pointer;
     margin-bottom: 15px;
   }
+
   .spinner {
     margin: 0 auto;
   }
+
   .img-container {
     height: auto;
   }
+
+  .gallery-intro-header {
+    font-size: 16px;
+  }
+  
+  .gallery-intro-desc {
+    font-size: 12px;
+  }
+
+
 }
 
 @media (max-width: 991px) {
+  .twitter_and_google_maps, .event-description-container {
+    width: 100%;
+    display: block;
+  }
+
+  .event-description {
+    overflow-y: hidden;
+  }
+
+  .event-description-container, .twitter-and-google-maps {
+    margin: 1rem 0rem;
+  }
+
+  .event-description-container {
+    padding: 1rem 2rem;
+  }
+
+  .event-body {
+    margin: 1rem 0rem;
+    display: block;
+    max-height: 400px;
+  }
+
   .newest-section{
     background-color: #e7e7e7;
     width: 100%;
     min-height: 350px;
     margin-bottom: 1rem;
+  }
+
+  .sp-circle {
+    margin-top: 40%;
   }
 
   body {
@@ -716,8 +830,8 @@ ol {
     font-size: 12px;
   }
 
-  #twitter-and-google-maps{
-    margin: 1rem 0;
+  .twitter-and-google-maps{
+    /* margin: 1rem 0; */
   }
 }
 
@@ -748,6 +862,7 @@ ol {
     margin-right: 10%;
     padding-bottom: 1rem;
   }
+
   /* Data Page */
 
   .event-info > span {

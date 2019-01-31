@@ -76,7 +76,7 @@ function dataStorage(events) {
 
         var groupPhoto1 = global_result.results[x].photo_url;
         if(groupPhoto1 === undefined){
-            var oldSrc = 'images/default_pic.jpg';
+            var oldSrc = 'images/default_pic.png';
 
             groupPhoto1 = oldSrc;
             photoUrl.push(groupPhoto1);
@@ -175,7 +175,7 @@ function showEventsPage (){
             $("#events-to-choose").removeClass("hidePage");
             $('#gallery').addClass("hidePage");
             $("#event-chosen").addClass("hidePage").removeClass("event_chosen");
-            $("#twitter-and-google-maps").addClass("hidePage").removeClass("twitter_and_google_maps");
+            $(".twitter-and-google-maps").addClass("hidePage").removeClass("twitter_and_google_maps");
             window.setTimeout(function() {
                 $(window).scrollTop(0); 
             }, 0);
@@ -186,7 +186,7 @@ function showEventsPage (){
         $("#events-to-choose").removeClass("hidePage");
         $('#gallery').addClass("hidePage");
         $("#event-chosen").addClass("hidePage").removeClass("event_chosen");
-        $("#twitter-and-google-maps").addClass("hidePage").removeClass("twitter_and_google_maps");
+        $(".twitter-and-google-maps").addClass("hidePage").removeClass("twitter_and_google_maps");
         window.setTimeout(function() {
             $(window).scrollTop(0); 
         }, 0);
@@ -206,13 +206,13 @@ function hideEventsPageAndShowDataPage () {
     $(".landing-page").addClass("hidePage");
     $("#events-to-choose").addClass("hidePage");
     $("#event-chosen").removeClass("hidePage").addClass("event_chosen");
-    $("#twitter-and-google-maps").removeClass("hidePage").addClass("twitter_and_google_maps");
+    $(".twitter-and-google-maps").removeClass("hidePage").addClass("twitter_and_google_maps");
 }
 
 function showLandingPageAndHideDataPage () {
     $("#events-to-choose").removeClass("hidePage");
     $("#event-chosen").addClass("hidePage").removeClass("event_chosen");
-    $("#twitter-and-google-maps").addClass("hidePage").removeClass("twitter_and_google_maps");
+    $(".twitter-and-google-maps").addClass("hidePage").removeClass("twitter_and_google_maps");
 }
 
 function showGallery(){
@@ -220,7 +220,7 @@ function showGallery(){
     $(".landing-page").addClass("hidePage");
     $("#events-to-choose").addClass("hidePage");
     $("#event-chosen").addClass("hidePage").removeClass("event_chosen");
-    $("#twitter-and-google-maps").addClass("hidePage").removeClass("twitter_and_google_maps");
+    $(".twitter-and-google-maps").addClass("hidePage").removeClass("twitter_and_google_maps");
     $("#gallery").removeClass("hidePage");
     window.setTimeout(function() {
         $(window).scrollTop(0); 
@@ -244,7 +244,7 @@ function search () {
 function hideDataPage () {
     $("#event-chosen").addClass("hidePage");
     $(".spinnerForEvents").addClass("hidePage");
-    $("#twitter-and-google-maps").addClass("hidePage");
+    $(".twitter-and-google-maps").addClass("hidePage");
     $("#gallery").addClass("hidePage");
 }
 
@@ -257,8 +257,8 @@ function getEventsList(meetupStorage){
             );
             newFigure.append(newImage);
             figureArray.push(newFigure);
-            if(meetupStorage.eventName[i].length > 40){
-                var nameOfEvent = $('<div>').text(meetupStorage.eventName[i].substring(0,40)+"...").addClass("figure-text");
+            if(meetupStorage.eventName[i].length > 30){
+                var nameOfEvent = $('<div>').text(meetupStorage.eventName[i].substring(0,30)+"...").addClass("figure-text");
             }else {
                 var nameOfEvent=$('<div>').text(meetupStorage.eventName[i]).addClass("figure-text");
             }
@@ -312,7 +312,7 @@ function addDataOntoPage () {
     
             $(".date").text("Date: " + meetupStorage.date[i]);
             $(".event-name").text(meetupStorage.eventName[i]);
-            var shortenedDescription = meetupStorage.eventDescriptions[i].substring(0,500) + "...";
+            var shortenedDescription = meetupStorage.eventDescriptions[i].substring(0,450) + "...";
             var seeMoreButton = $("<Button>").addClass("show-more-button btn btn-default").text("See More");
             $(".event-description").text(shortenedDescription).css("margin", "1rem 0px");
             $(".event-description").append(seeMoreButton);
@@ -372,7 +372,7 @@ function chickTechGallery(){
                 chickTechArray.push(link);
             }
 
-            placeImages(chickTechArray, '.gallery-chicktech');
+            chickTechPlaceImages(chickTechArray, '.gallery-chicktech');
         }
     })
 }
@@ -406,7 +406,7 @@ function girlDevelopItGallery(){
                 
                 girlDevelopItArray.push(link);
             }
-            placeImages(girlDevelopItArray, '.gallery-girldevelopit');
+            girlDevelopItPlaceImages(girlDevelopItArray, '.gallery-girldevelopit');
         }
     })
 }
@@ -438,32 +438,150 @@ function girlsInTechGallery(){
                 
                 girlsInTechArray.push(link);
             }
-            placeImages(girlsInTechArray, '.gallery-girlsintech');
+            girlsInTechPlaceImages(girlsInTechArray, '.gallery-girlsintech');
         }
     })
 }
 
-function placeImages(array, section){
+function chickTechPlaceImages(array, section){
     var figureArray = [];
+    var carouselArray = [];
     
     for(var i = 0; i < array.length; i++) {
         var imgFigure = $('<figure>').addClass('gallery-figure');
-        var image = $('<img>').addClass('gallery-image').click(displayImage).attr({
+        var image = $('<img>').addClass('gallery-image').click(chickTechDisplayImage).attr({
             linkData: array[i],
             src: array[i],
             index: i
         });
+        var imgSrc = $('<img>').addClass('chickTechImg').attr({
+            src: array[i]
+        });
+        var carouselTarget = $('<li>').attr({
+            "data-target": "#chickTechCarousel",
+        });
+
+        if(i === 0){
+            var imgContainer = $('<div>').addClass("item active");
+        }else {
+            var imgContainer = $('<div>').addClass("item");
+        }
+
+        $('#chickTech-modal .carousel-indicators').append(carouselTarget);        
+        imgContainer.append(imgSrc);
+        carouselArray.push(imgContainer);
         imgFigure.append(image);
         figureArray.push(imgFigure);
     }
     
+    $('#chickTech-modal .carousel-inner').append(carouselArray);
     $(section).append(figureArray);
 }
 
-function displayImage(target){
-    var link = target.currentTarget.attributes.linkData.nodeValue;
-    $('.modal-image img').attr('src', link);
-    $('#gallery-modal').modal();
+function girlDevelopItPlaceImages(array, section){
+    var figureArray = [];
+    var carouselArray = [];
+    
+    for(var i = 0; i < array.length; i++) {
+        var imgFigure = $('<figure>').addClass('gallery-figure');
+        var image = $('<img>').addClass('gallery-image').click(girlDevelopItDisplayImage).attr({
+            linkData: array[i],
+            src: array[i],
+            index: i
+        });
+        var imgSrc = $('<img>').addClass('girlDevelopItImg').attr({
+            src: array[i]
+        });
+        var carouselTarget = $('<li>').attr({
+            "data-target": "#girlDevelopItCarousel",
+        });
+
+        if(i === 0){
+            var imgContainer = $('<div>').addClass("item active");
+        }else {
+            var imgContainer = $('<div>').addClass("item");
+        }
+
+        $('#girlDevelopIt-modal .carousel-indicators').append(carouselTarget);        
+        imgContainer.append(imgSrc);
+        carouselArray.push(imgContainer);
+        imgFigure.append(image);
+        figureArray.push(imgFigure);
+    }
+    
+    $('#girlDevelopIt-modal .carousel-inner').append(carouselArray);
+    $(section).append(figureArray);
+}
+
+function girlsInTechPlaceImages(array, section){
+    var figureArray = [];
+    var carouselArray = [];
+    
+    for(var i = 0; i < array.length; i++) {
+        var imgFigure = $('<figure>').addClass('gallery-figure');
+        var image = $('<img>').addClass('gallery-image').click(girlsInTechDisplayImage).attr({
+            linkData: array[i],
+            src: array[i],
+            index: i
+        });
+        var imgSrc = $('<img>').addClass('girlsInTechImg').attr({
+            src: array[i]
+        });
+        var carouselTarget = $('<li>').attr({
+            "data-target": "#girlsInTechCarousel",
+        });
+
+        if(i === 0){
+            var imgContainer = $('<div>').addClass("item active");
+        }else {
+            var imgContainer = $('<div>').addClass("item");
+        }
+
+        $('#girlsInTech-modal .carousel-indicators').append(carouselTarget);        
+        imgContainer.append(imgSrc);
+        carouselArray.push(imgContainer);
+        imgFigure.append(image);
+        figureArray.push(imgFigure);
+    }
+    
+    $('#girlsInTech-modal .carousel-inner').append(carouselArray);
+    $(section).append(figureArray);
+}
+
+function chickTechDisplayImage(event){
+    var link = event.currentTarget.src;
+    var imgSources = $('div.item img.chickTechImg');
+    for(var imgIndex = 0; imgIndex < imgSources.length; imgIndex++){
+        if(imgSources[imgIndex].src === link){
+            break;
+        }
+    }
+    $("#chickTechCarousel").carousel(imgIndex);
+    $('#chickTech-modal').modal();
+}
+
+function girlDevelopItDisplayImage(event){
+    var link = event.currentTarget.src;
+    var imgSources = $('div.item img.girlDevelopItImg');
+    for(var imgIndex = 0; imgIndex < imgSources.length; imgIndex++){
+        if(imgSources[imgIndex].src === link){
+            break;
+        }
+    }
+    $("#girlDevelopItCarousel").carousel(imgIndex);
+    $('#girlDevelopIt-modal').modal();
+}
+
+function girlsInTechDisplayImage(event){
+    var link = event.currentTarget.src;
+    var imgSources = $('div.item img.girlsInTechImg');
+    for(var imgIndex = 0; imgIndex < imgSources.length; imgIndex++){
+        if(imgSources[imgIndex].src === link){
+            break;
+        }
+    }
+    $('#girlsInTechCarousel').carousel(imgIndex);
+    $('#girlsInTech-modal').modal();
 }
 
 function addOneMarkerToMap(coordinates, eventName, address) {
